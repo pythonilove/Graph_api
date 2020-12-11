@@ -1,3 +1,91 @@
+'''
+1. Microsoft Graph exposes two resource types for working with files:
+
+    Drive - Represents a logical container of files, like a document library or a user's OneDrive.
+    DriveItem - Represents an item within a drive, like a document, photo, video, or folder.
+
+OneDrive's REST API provides a few top-level types that represent addressable resources in the API:
+
+    drive (top-level object)
+    driveItem (files and folders)
+
+Drive and DriveItem resources expose data in three different ways:
+
+    Properties (like id and name) expose simple values (strings, numbers, Booleans).
+    Facets (like file and photo) expose complex values. The presence of file or folder facets indicates behaviors and properties of a DriveItem.
+    References (like children and thumbnails) point to collections of other resources.
+
+How to authenticate and authorize Python apps on Azure
+https://docs.microsoft.com/en-us/azure/developer/python/azure-sdk-authenticate?tabs=cmd
+
+https://docs.microsoft.com/en-us/graph/api/resources/onedrive?view=graph-rest-1.0
+https://docs.microsoft.com/en-us/onedrive/developer/rest-api/concepts/addressing-driveitems?view=odsp-graph-online
+https://docs.microsoft.com/en-us/graph/api/driveitem-get?view=graph-rest-1.0&tabs=http
+https://docs.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0&tabs=http
+
+https://cloud-right.com/2020/06/microsoft-graph-python
+https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-configure-app-access-web-apis#add-permissions-to-access-web-apis
+
+Erro Response
+https://docs.microsoft.com/en-us/graph/errors
+
+2. Addressing resources in a drive on OneDrive
+
+    The OneDrive API allows a single URL to address two aspects of a resource:
+
+    The driveItem resource
+    A property, facet, or relationship of the Item
+    An Item facet represents an element of the resource, like the image metadata, folder metadata, and so on.
+
+    https://graph.microsoft.com/v1.0 - The version of the Microsoft Graph being used.
+    /me - A top-level Microsoft Graph resource being addressed, in this case the current user.
+    /drive - The default drive for the previous resource, in this case the user's OneDrive.
+    /root - The root folder for the drive.
+
+    :/Documents/MyFile.xlsx: - The : : around /Documents/MyFile.xlsx represents a switch to the path-based addressing syntax. Everything between the two colons is treated as a path relative to the item before the path (in this case, the root).
+    /content - Represents the default binary stream for the file. You can also address other properties or relationships on the item.
+
+    GET /drives/{drive-id}/items/{item-id}
+    GET /drives/{drive-id}/root:/{item-path}
+    GET /groups/{group-id}/drive/items/{item-id}
+    GET /groups/{group-id}/drive/root:/{item-path}
+    GET /me/drive/items/{item-id}
+    GET /me/drive/root:/{item-path}
+    GET /sites/{site-id}/drive/items/{item-id}
+    GET /sites/{site-id}/drive/root:/{item-path}
+    GET /sites/{site-id}/lists/{list-id}/items/{item-id}/driveItem
+    GET /users/{user-id}/drive/items/{item-id}
+    GET /users/{user-id}/drive/root:/{item-path}
+
+
+        print("=============== Onedrive Menu ======================")
+        print()
+        print("Note: An item may be a file or folder")
+        print()
+        print("      1. Show my profile ")
+        print("      2. List all files and folders at root")
+        print("      3. List all subfolders and files")
+        print("      4. View file or folder name basing on ID")
+        print("      5. Get file or folder location")
+        print("      6. Get my recent files")
+        print("      7. Search an item")
+        print("      8. Rename an item")
+        print("      9. Create a folder")
+        print("      10. Delete a item")
+        print("      11. Restore a item")
+        print("      12. Copy a item")
+        print("      13. Move a item")
+        print("      14. Download a file")
+        print("      15. Upload a file")
+        print("      16. List all version of an item")
+        print("      17. Exit")
+        print()
+        your_answer = int(input("Please enter your choice:  "))
+        print("Your selection is: ", your_answer)
+
+'''
+
+
 # Import libraries
 import requests
 import msal
