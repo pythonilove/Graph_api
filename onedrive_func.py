@@ -53,7 +53,7 @@ def get_authentication_service():
 
     return result
 
-
+# Get my profile of signed-in user
 def onedrive_get_my_profile(authen):
     resp = requests.get(f'{config.ENDPOINT}/me', headers={'Authorization': 'Bearer ' + authen['access_token']})
     data = resp.json()
